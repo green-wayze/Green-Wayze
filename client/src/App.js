@@ -1,8 +1,22 @@
 import React, { Component } from "react";
 import logo from "./logo.svg";
 import "./App.css";
+import axios from 'axios'
 
 class App extends Component {
+
+  state = {
+    "testValue": "getting..."
+  }
+
+  componentDidMount() {
+    console.log("Mounting App");
+    axios.get("/api/test")
+      .then((res) => {
+        console.log(res.data.test);
+        this.setState({"testValue": res.data.test})
+    })
+  }
   render() {
     return (
       <div className="App">
@@ -11,7 +25,7 @@ class App extends Component {
           <h2>Welcome to Green Wayze App</h2>
         </div>
         <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
+          Test data is {this.state.testValue}
         </p>
       </div>
     );
